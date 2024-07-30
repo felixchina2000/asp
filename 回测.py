@@ -98,3 +98,4 @@ if __name__ == '__main__':
     a.set_order_cost(0, 0.005, 0.001, 0.005, 5)
     a.getRawData(b)
     # a.test()
+    #一个测试
