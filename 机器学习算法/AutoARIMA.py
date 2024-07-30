@@ -70,5 +70,5 @@ class AutoARIMA_pridict:
         plt.show()
 
 a = AutoARIMA_pridict('000001')
-a.date_setting(start_date='2019-05-12', end_date='2019-12-19')
+a.date_setting(start_date='2022-04-01', end_date='2023-04-10')
 a.makePredictionByDay(140)

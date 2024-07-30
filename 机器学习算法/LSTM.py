@@ -14,8 +14,10 @@ class LSTM_Predict:
     def __init__(self, stock_code):
         self.stock_code = stock_code
     def date_setting(self, start_date, end_date):
+        ts.set_token('fe3907f6ea74fe750f900a6964d17c5b8af1cce1d58c987665842109')
         self.tsData = ts.get_hist_data(code=self.stock_code, start=start_date, end=end_date)
         self.tsData = self.tsData.sort_index(ascending=True).reset_index()
+        #print(self.tsData)
     def makePrediction(self, node):
         # 创建数据框
         new_data = pd.DataFrame(index=range(0, len(self.tsData)), columns=['Date', 'Close'])
@@ -28,7 +30,7 @@ class LSTM_Predict:
 
         # 创建训练集和验证集
         dataset = new_data.values
-        print(dataset)
+        #print(dataset)
         train = dataset[0:node, :]
         valid = dataset[node:, :]
 
@@ -41,6 +43,17 @@ class LSTM_Predict:
             y_train.append(scaled_data[i, 0])
         x_train, y_train = np.array(x_train), np.array(y_train)
         x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
+
+        """""" 
+        #print(dataset)
+        #print(dataset.shape)
+        #print(scaled_data)
+        #print(scaled_data.shape)
+        print(x_train)
+        print(x_train.shape)
+        print(y_train)
+        print(y_train.shape)
+        exit() 
 
         # 创建和拟合LSTM网络
         model = Sequential()
@@ -77,5 +90,6 @@ class LSTM_Predict:
         print(self.tsData)
 
 a = LSTM_Predict('000001')
-a.date_setting(start_date='2019-05-12', end_date='2019-12-19')
+#a.date_setting(start_date='2019-05-12', end_date='2019-12-19')
+a.date_setting(start_date='2022-04-01', end_date='2023-04-10')
 a.makePrediction(130)
